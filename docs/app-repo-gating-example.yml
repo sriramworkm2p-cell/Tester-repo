@@ -1,0 +1,43 @@
+# EXAMPLE ONLY -- this file is not executed. It shows what you would add to
+# the FE/BE app repo's own CI config to make its PRs gated by tester-repo.
+# See README.md "Gating sketch" for the full explanation.
+name: gate-on-tester-repo-suite
+
+on:
+  pull_request:
+
+jobs:
+  tester-repo-suite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this PR's code
+        uses: actions/checkout@v4
+        with:
+          path: app
+
+      - name: Checkout central tester-repo
+        uses: actions/checkout@v4
+        with:
+          repository: your-org/tester-repo
+          path: tester-repo
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: yarn install --frozen-lockfile
+        working-directory: app
+      - run: npm ci
+        working-directory: tester-repo
+      - run: npx playwright install --with-deps chromium
+        working-directory: tester-repo
+
+      - run: yarn start:ci &
+        working-directory: app
+      - run: npx --yes wait-on tcp:3001 tcp:3000 --timeout 120000
+
+      # This is the check that branch protection on the app repo requires to
+      # pass before merge -- see README.md "Branch protection" for the exact
+      # required-status-check name to configure.
+      - run: npm test
+        working-directory: tester-repo

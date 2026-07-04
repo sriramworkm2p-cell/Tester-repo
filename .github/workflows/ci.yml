@@ -1,0 +1,63 @@
+name: tester-repo CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tester-repo
+        uses: actions/checkout@v4
+        with:
+          path: tester-repo
+
+      # In real usage this pins a ref/SHA supplied by the FE/BE repo's PR workflow
+      # (see README "Cross-repo gating"). Defaulting to main here so this workflow
+      # is runnable standalone.
+      - name: Checkout app-under-test (cypress-realworld-app)
+        uses: actions/checkout@v4
+        with:
+          repository: cypress-io/cypress-realworld-app
+          ref: ${{ github.event.client_payload.app_ref || 'develop' }}
+          path: app
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install app dependencies
+        working-directory: app
+        run: yarn install --frozen-lockfile
+
+      - name: Install tester-repo dependencies
+        working-directory: tester-repo
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: tester-repo
+        run: npx playwright install --with-deps chromium
+
+      # Mirrors the app's own CI (cypress-io/github-action usage in its .github/workflows/main.yml):
+      # `yarn start:ci` boots the API (3001) and the React app served behind a proxy (3000).
+      - name: Start app under test
+        working-directory: app
+        run: yarn start:ci &
+
+      - name: Wait for app to be ready
+        run: npx --yes wait-on tcp:3001 tcp:3000 --timeout 120000
+
+      - name: Run gating test suite
+        working-directory: tester-repo
+        run: npm test
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: tester-repo/playwright-report/
+          retention-days: 14

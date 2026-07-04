@@ -1,0 +1,26 @@
+{
+  "name": "tester-repo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Central test suite that gates PRs for the cypress-realworld-app frontend and backend.",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:api": "playwright test tests/api",
+    "test:e2e": "playwright test tests/e2e",
+    "test:generated": "playwright test tests/generated",
+    "agent:generate": "node agent/generate-tests.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.0.0",
+    "typescript": "5.8.3"
+  },
+  "dependencies": {
+    "@faker-js/faker": "6.1.2",
+    "date-fns": "4.1.0",
+    "date-fns-tz": "^3.2.0",
+    "dinero.js": "^2.0.0",
+    "lodash": "^4.17.21"
+  }
+}

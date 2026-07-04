@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-07-04T17:18:43.788Z",
+  "sourceFile": "..\\app\\src\\utils\\transactionUtils.ts",
+  "outputFile": "tests/generated/transactionUtils.spec.ts",
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 3877,
+      "outputTokens": 16,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.003957,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    },
+    "claude-sonnet-5": {
+      "inputTokens": 4,
+      "outputTokens": 10544,
+      "cacheReadInputTokens": 59018,
+      "cacheCreationInputTokens": 21057,
+      "webSearchRequests": 0,
+      "costUSD": 0.3022194,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000
+    }
+  },
+  "costUSD": 0.3061764,
+  "groundingCheck": {
+    "passed": true,
+    "problems": [],
+    "exercisedFunctions": [
+      "getPaginatedItems",
+      "hasSufficientFunds",
+      "getChargeAmount",
+      "getTransferAmount",
+      "getPayAppCreditedAmount",
+      "hasDateQueryFields",
+      "getDateQueryFields",
+      "omitDateQueryFields",
+      "hasAmountQueryFields",
+      "getAmountQueryFields",
+      "omitAmountQueryFields",
+      "getQueryWithoutFilterFields",
+      "formatFullName",
+      "isCommentNotification",
+      "isLikeNotification",
+      "isPaymentNotification",
+      "isoStringToLocalMidnightStart",
+      "isoStringToLocalMidnightEnd",
+      "localDateToIsoString",
+      "isoStringToLocalDateFull",
+      "localDateToUTCISOString",
+      "isRequestTransaction",
+      "isPayment"
+    ]
+  }
+}
