@@ -29,6 +29,11 @@ jobs:
         with:
           node-version: 20
 
+      # The app's own scripts shell out to `yarn` internally (prestart, start:ci),
+      # so it must be present regardless of how dependencies get installed.
+      - name: Ensure yarn is available
+        run: npm install -g yarn
+
       - name: Install app dependencies
         working-directory: app
         run: yarn install --frozen-lockfile

@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: 20
 
+      - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
         working-directory: app
       - run: npm ci
