@@ -59,11 +59,15 @@ jobs:
         working-directory: tester-repo
         run: npx playwright install --with-deps chromium
 
-      # Mirrors the app's own CI (cypress-io/github-action usage in its .github/workflows/main.yml):
-      # `yarn start:ci` boots the API (3001) and the React app served behind a proxy (3000).
+      # Deliberately NOT `yarn start:ci`: that script serves the frontend via
+      # scripts/testServer.ts, which fails to compile under this dependency
+      # tree (TS2769 in its express/history typings), and its prestart hook
+      # skips seeding data/database.json entirely. Plain `start` runs the
+      # frontend through vite directly (verified working) and seeds the
+      # database via its own prestart hook.
       - name: Start app under test
         working-directory: app
-        run: yarn start:ci &
+        run: yarn start &
 
       - name: Wait for app to be ready
         run: npx --yes wait-on tcp:3001 tcp:3000 --timeout 120000

@@ -27,7 +27,7 @@ and enforces it during install) and Yarn (`npm install -g yarn` if you don't hav
 
 ```bash
 # 1. Start the app under test (in a sibling `app/` checkout of cypress-realworld-app)
-cd app && yarn install && yarn start:ci   # serves frontend :3000, backend :3001
+cd app && yarn install && yarn start   # serves frontend :3000, backend :3001
 
 # 2. In another terminal, install and run the suite
 cd tester-repo
@@ -56,7 +56,7 @@ All 5 pass against a live instance of the app (verified locally; CI runs the sam
 ## CI
 
 `.github/workflows/ci.yml`: checks out this repo and the app repo side by side,
-installs both, boots the app (`yarn start:ci`), waits for ports 3000/3001, then
+installs both, boots the app (`yarn start`), waits for ports 3000/3001, then
 runs `npm test`. Report is uploaded as an artifact. This is the same status
 check an app-repo PR would depend on (see below).
 

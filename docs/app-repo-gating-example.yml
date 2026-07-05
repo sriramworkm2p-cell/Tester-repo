@@ -35,7 +35,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
         working-directory: tester-repo
 
-      - run: yarn start:ci &
+      - run: yarn start &
         working-directory: app
       - run: npx --yes wait-on tcp:3001 tcp:3000 --timeout 120000
 
