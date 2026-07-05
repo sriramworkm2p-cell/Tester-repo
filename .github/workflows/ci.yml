@@ -29,10 +29,11 @@ jobs:
         with:
           node-version: 20
 
-      # The app's own scripts shell out to `yarn` internally (prestart, start:ci),
-      # so it must be present regardless of how dependencies get installed.
-      - name: Ensure yarn is available
-        run: npm install -g yarn
+      # The app pins its package manager via corepack ("packageManager" in its
+      # package.json) and its own scripts shell out to `yarn` internally
+      # (prestart, start:ci) -- corepack enable lets that resolve correctly.
+      - name: Enable corepack (yarn)
+        run: corepack enable
 
       - name: Install app dependencies
         working-directory: app
