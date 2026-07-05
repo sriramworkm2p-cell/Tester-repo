@@ -30,7 +30,7 @@ jobs:
       # install under Node 20.
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       # The app pins its package manager via corepack ("packageManager" in its
       # package.json) and its own scripts shell out to `yarn` internally
