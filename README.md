@@ -22,7 +22,8 @@ docs/           example of the CI change an FE/BE repo would add to be gated by 
 
 ## Running locally
 
-Requires Node 20+ and Yarn (`npm install -g yarn` if you don't have it).
+Requires Node 22+ (the app's own `package.json` pins `engines.node: "^22.0.0 || ^24.0.0"`
+and enforces it during install) and Yarn (`npm install -g yarn` if you don't have it).
 
 ```bash
 # 1. Start the app under test (in a sibling `app/` checkout of cypress-realworld-app)

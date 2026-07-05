@@ -25,9 +25,12 @@ jobs:
           ref: ${{ github.event.client_payload.app_ref || 'develop' }}
           path: app
 
+      # cypress-realworld-app's package.json pins "engines.node": "^22.0.0 || ^24.0.0" --
+      # a dependency's postinstall enforces this strictly and fails the whole
+      # install under Node 20.
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       # The app pins its package manager via corepack ("packageManager" in its
       # package.json) and its own scripts shell out to `yarn` internally
