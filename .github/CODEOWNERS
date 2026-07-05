@@ -1,7 +1,6 @@
 # Any change to the shared test suite or the test-writing agent must be
 # reviewed by the automation engineer(s) who own suite reliability -- this is
 # the review gate described in README.md "Gating sketch".
-# Replace @YOUR_GITHUB_USERNAME with the real automation engineer's handle(s).
-/tests/              @YOUR_GITHUB_USERNAME
-/agent/              @YOUR_GITHUB_USERNAME
-/.github/workflows/  @YOUR_GITHUB_USERNAME
+/tests/              @sriramworkm2p-cell
+/agent/              @sriramworkm2p-cell
+/.github/workflows/  @sriramworkm2p-cell
