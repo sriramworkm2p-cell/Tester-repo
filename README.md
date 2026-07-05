@@ -5,6 +5,10 @@ Central test suite for [cypress-realworld-app](https://github.com/cypress-io/cyp
 playing the role of "separate FE/BE repos" for this exercise). This repo lives
 independently of the app and is the thing that gates its PRs.
 
+This README is the quick start. For the full walkthrough (including the real
+CI debugging trail and a screenshot-driven demo of everything running), see
+[`GUIDE.md`](GUIDE.md) and [`docs/pipeline-demo.html`](docs/pipeline-demo.html).
+
 ## What's here
 
 ```
