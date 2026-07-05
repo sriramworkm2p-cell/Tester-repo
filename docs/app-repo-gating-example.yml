@@ -28,6 +28,8 @@ jobs:
       - run: corepack enable
       - run: npm install --legacy-peer-deps
         working-directory: app
+        env:
+          CYPRESS_INSTALL_BINARY: "0"
       - run: npm ci
         working-directory: tester-repo
       - run: npx playwright install --with-deps chromium

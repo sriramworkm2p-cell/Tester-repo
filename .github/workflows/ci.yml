@@ -39,8 +39,13 @@ jobs:
       # npm installs the same dependency tree reliably and the app's own
       # scripts only need a working `yarn` binary at runtime (see previous
       # step), not for the install itself.
+      # We only need the app's runtime deps to boot it -- not its bundled
+      # Cypress suite, whose postinstall downloads a large external binary
+      # and is a common source of CI flakiness/failures.
       - name: Install app dependencies
         working-directory: app
+        env:
+          CYPRESS_INSTALL_BINARY: "0"
         run: npm install --legacy-peer-deps
 
       - name: Install tester-repo dependencies
