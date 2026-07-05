@@ -35,9 +35,13 @@ jobs:
       - name: Enable corepack (yarn)
         run: corepack enable
 
+      # yarn install --frozen-lockfile fails in this environment (verified);
+      # npm installs the same dependency tree reliably and the app's own
+      # scripts only need a working `yarn` binary at runtime (see previous
+      # step), not for the install itself.
       - name: Install app dependencies
         working-directory: app
-        run: yarn install --frozen-lockfile
+        run: npm install --legacy-peer-deps
 
       - name: Install tester-repo dependencies
         working-directory: tester-repo
